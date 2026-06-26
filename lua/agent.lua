@@ -3,9 +3,25 @@
 
 local M = {}
 
+local function load_api_key()
+  local f = io.open(os.getenv("HOME") .. "/.ollama.env", "r")
+  if f then
+    for line in f:lines() do
+      local key = line:match('^OLLAMA_API_KEY%s*=%s*"?([^"%s]+)"?')
+      if key then
+        f:close()
+        return key
+      end
+    end
+    f:close()
+  end
+  return os.getenv("OLLAMA_API_KEY")
+end
+
 M.config = {
-  model = "glm-5.1:cloud",
-  ollama_url = "http://localhost:11434",
+  model = "glm-5.2:cloud",
+  ollama_url = "https://ollama.com",
+  api_key = load_api_key(),
   prompt_prefix = "Write only the code, no explanation, no markdown fences. Language: %s\n",
   prompt_prefix_context = "Write only the code, no explanation, no markdown fences. Language: %s\n\n--- Context ---\n%s\n\n--- Instruction ---\n",
   prompt_prefix_question = "Answer the following question concisely. Language: %s\n\n",
@@ -244,6 +260,7 @@ local function do_assist(context)
     "curl", "-s", "--max-time", tostring(M.config.timeout),
     "-d", "@" .. tmp,
     "-H", "Content-Type: application/json",
+    "-H", "Authorization: Bearer " .. M.config.api_key,
     url,
   }, {
     on_stdout = function(_, data, _)

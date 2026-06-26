@@ -22,12 +22,18 @@ vim.opt.history = 250
 vim.opt.encoding = 'utf-8'
 vim.opt.background = 'dark'
 
+vim.cmd('call plug#begin()')
+vim.cmd("Plug 'Olical/conjure'")
+vim.cmd("Plug 'guns/vim-sexp'")
+vim.cmd('call plug#end()')
+
 local agent = require("agent")
 agent.setup({
-  model = "glm-5.1:cloud",
+  model = "glm-5.2:cloud",  -- or "deepseek-coder", "starcoder2", etc.
 })
 
 vim.keymap.set("n", "<leader>a", agent.assist, { desc = "Ollama agent assist" })
 vim.keymap.set("n", "<leader>f", agent.assist_file, { desc = "Ollama agent assist (file)" })
 vim.api.nvim_create_user_command("AgentAssist", agent.assist, {})
 vim.api.nvim_create_user_command("AgentAssistFile", agent.assist_file, {})
+vim.api.nvim_create_user_command("RosFmt", "!ros fmt %", {})
