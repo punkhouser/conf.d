@@ -1,8 +1,6 @@
--- Vim -> filetype on : is it default?
---vim.cmd('filetype plugin indent on')
--- Vim -> syntax on
--- vim.cmd('syntax on')
 
+vim.cmd('filetype plugin indent on')
+vim.cmd('syntax on')
 vim.opt.backup = false
 vim.opt.swapfile = false
 vim.opt.number = true
@@ -21,12 +19,15 @@ vim.opt.softtabstop = 4
 vim.opt.history = 250
 vim.opt.encoding = 'utf-8'
 vim.opt.background = 'dark'
+vim.opt.clipboard = "unnamedplus"
 
 vim.pack.add{
   { src = 'https://github.com/neovim/nvim-lspconfig' },
 }
 
-vim.lsp.enable('hls')
+vim.cmd('colorscheme habamax')
+
+--vim.lsp.enable('hls')
 
 local agent = require("agent")
 agent.setup({
