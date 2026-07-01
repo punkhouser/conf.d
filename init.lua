@@ -21,11 +21,12 @@ vim.opt.softtabstop = 4
 vim.opt.history = 250
 vim.opt.encoding = 'utf-8'
 vim.opt.background = 'dark'
-vim.opt.clipboard = "unnamedplus"
 
-vim.cmd('call plug#begin()')
---vim.cmd("Plug 'Olical/conjure'")
-vim.cmd('call plug#end()')
+vim.pack.add{
+  { src = 'https://github.com/neovim/nvim-lspconfig' },
+}
+
+vim.lsp.enable('hls')
 
 local agent = require("agent")
 agent.setup({
