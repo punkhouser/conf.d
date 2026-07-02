@@ -22,12 +22,15 @@
 (show-paren-mode 1)
 (electric-pair-mode 1)
 (global-display-line-numbers-mode 1)
+(setq column-number-mode t)
 (setq-default indent-tabs-mode nil)
 (fset 'yes-or-no-p 'y-or-n-p)
 (global-auto-revert-mode 1)
+(display-time)
 
 ;; Load theme
 (load-theme 'solarized-light t)
+;;(set-frame-font "DejaVu Sans Mono-14")
 
 ;; --- Evil mode ---
 ;; these three need to be set *before* evil loads
