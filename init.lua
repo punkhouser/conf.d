@@ -27,11 +27,9 @@ vim.pack.add{
 
 vim.cmd('colorscheme habamax')
 
---vim.lsp.enable('hls')
-
 local agent = require("agent")
 agent.setup({
-  model = "glm-5.2:cloud",  -- or "deepseek-coder", "starcoder2", etc.
+  model = "glm-5.2:cloud",
 })
 
 vim.keymap.set("n", "<leader>a", agent.assist, { desc = "Ollama agent assist" })
